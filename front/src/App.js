@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { BrowserRouter, Route ,Routes } from "react-router-dom";
 import {Productos} from "./componentes/productos"
 import { Navbar } from "./componentes/Navbar"
 import {Detalles} from "./componentes/Detalles"
 import {Footer} from "./componentes/Footer"
 import {Home} from "./componentes/Home"
+import injectContext from "./componentes/store/appContext";
+import { Context } from "./componentes/store/appContext";
 const App = () => {
   // -------------------------------------------------
   // DO NOT USE THE CODE BELOW FROM LINES 8 TO 18. THIS IS
@@ -21,19 +23,11 @@ const App = () => {
     getApiResponse();
   }, []);
   // -------------------------------------------------
-const [carrito, setCarrito]= useState(JSON.parse(localStorage.getItem("cart"))?? []);
-  useEffect(()=>{
-    localStorage.setItem("cart",JSON.stringify(carrito));
-    },[carrito]);  
+const { store, actions } = useContext(Context);
+  const { carrito } = store;
+  const { agregarAlCarrito, eliminarDeCarrito } = actions;
 // -------------------------------------------------
-const agregarAlCarrito = (producto) =>{
-  setCarrito([...carrito,producto]);
-};
-// -------------------------------------------------
-const eliminarDeCarrito = (id) =>{
-  setCarrito(carrito.filter((producto,index)=>index !== id))
-}
-// -------------------------------------------------
+
 return (
     <div style={{ textAlign: "center" }}>
       
@@ -52,4 +46,4 @@ return (
   );
 };
 
-export default App;
+export default injectContext(App);

@@ -1,34 +1,20 @@
-// archivo Productos.js
-
-import { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import "./styles/producto.css"
+import "./styles/producto.css";
+import { Context } from "./store/appContext";
 
-export const Productos = ({ agregarAlCarrito }) => {
-    const backendUrl = process.env.BACKEND_URL;
-    const [productos, setProductos] = useState([]);
-    const [total, setTotal] = useState(0);
-
-    useEffect(() => {
-        const fetchProductos = async () => {
-            try {
-                const respuesta = await fetch(backendUrl + "/api/products");
-                const data = await respuesta.json();
-                setProductos(data);
-            } catch (error) {
-                console.log("Danger", error);
-            }
-        };
-
-        fetchProductos();
-    }, [backendUrl]);
+export const Productos = () => {
+    const { store, actions } = useContext(Context);
+    const { productos } = store;
+    const { agregarAlCarrito } = actions;
 
     const handleClickAgregarCarrito = (producto) => {
         agregarAlCarrito(producto);
-        const carritoEnLocalStorage = JSON.parse(localStorage.getItem("carrito")) || [];
-        localStorage.setItem("carrito", JSON.stringify([...carritoEnLocalStorage, producto]));
-        setTotal(total + producto.price);
     };
+
+    useEffect(() => {
+        actions.getProductos();
+    }, []);
 
     return (
         <div className="contenedor">
@@ -37,7 +23,7 @@ export const Productos = ({ agregarAlCarrito }) => {
                     <figure>
                         <img
                             className="card-img-top"
-                            src={`${backendUrl}${producto.image}`}
+                            src={`http://localhost:5000${producto.image}`}
                             alt={`Imagen de ${producto.name}`}
                         />
                         <div className="capa">
@@ -52,11 +38,13 @@ export const Productos = ({ agregarAlCarrito }) => {
                                     onClick={() => handleClickAgregarCarrito(producto)}
                                     key={`add-to-cart-${producto.id}`}
                                 >
-                                    Agregar al carrito
+                                    Add item to cart
                                 </button>
                             )}
                             {producto.countInStock === 0 && (
-                                <div key={`out-of-stock-${producto.id}`}>No hay stock disponible</div>
+                                <div key={`out-of-stock-${producto.id}`}>
+                                    No hay stock disponible
+                                </div>
                             )}
                         </div>
                     </figure>

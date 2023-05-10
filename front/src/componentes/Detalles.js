@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import "./styles/detalles.css"
-export const Detalles = ({ carrito, agregarAlCarrito }) => {
+import { Context } from "./store/appContext";
+
+export const Detalles = () => {
     const { id } = useParams();
-    const [producto, setProducto] = useState(null);
+    const { store, actions } = useContext(Context);
+    const { producto } = store;
 
     useEffect(() => {
-        fetch(`http://localhost:5000/api/products/${id}`)
-            .then((respuesta) => respuesta.json())
-            .then((valornew) => setProducto(valornew))
-            .catch((error) => console.log("Danger", error));
-    }, [id]);
+        actions.getProducto(id);
+    }, [actions, id]);
 
     if (!producto) {
         return <div>Loading...</div>;
@@ -33,11 +33,10 @@ export const Detalles = ({ carrito, agregarAlCarrito }) => {
                     <p>Stock:{producto.countInStock}</p>
                     <p>Estrella:{producto.rating}</p>
                     <p>Review:{producto.numReviews}</p>
-
                     <p>Precio: ${producto.price}</p>
                     {producto.countInStock > 0 && (
                         <button className="carrito-add" onClick={() => {
-                            agregarAlCarrito(producto);
+                            actions.agregarAlCarrito(producto);
                             const carritoEnLocalStorage = JSON.parse(localStorage.getItem("carrito")) || [];
                             localStorage.setItem("carrito", JSON.stringify([...carritoEnLocalStorage, producto]));
                         }}>Agregar al carrito</button>
@@ -50,18 +49,3 @@ export const Detalles = ({ carrito, agregarAlCarrito }) => {
         </div>
     );
 };
-
-
-{/* <button type="button" className="description-btn">
-                                Get Back home
-                            </button> */}
-/* {producto.countInStock > 0 && (
-    <button onClick={() => {
-        agregarAlCarrito(producto);
-        const carritoEnLocalStorage = JSON.parse(localStorage.getItem("carrito")) || [];
-        localStorage.setItem("carrito", JSON.stringify([...carritoEnLocalStorage, producto]));
-    }}>Agregar al carrito</button>
-)}
-{producto.countInStock === 0 && (
-    <div>No hay stock disponible</div>
-)} */
