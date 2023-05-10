@@ -11,7 +11,6 @@ const App = () => {
   // HERE TO MAKE SURE THAT THE EXPRESS SERVER IS RUNNING
   // CORRECTLY. DELETE CODE WHEN COMPLETING YOUR TEST.
   const [response, setResponse] = useState("");
-
   // call server to see if its running
   useEffect(() => {
     const getApiResponse = () => {
@@ -37,7 +36,7 @@ const eliminarDeCarrito = (id) =>{
 // -------------------------------------------------
 return (
     <div style={{ textAlign: "center" }}>
-      <h1> Prueba tecnica front Ecomsur 2021</h1>
+      
       <BrowserRouter>
       <Navbar carrito={carrito} eliminarDeCarrito={eliminarDeCarrito}/>
       <Routes>
@@ -48,7 +47,7 @@ return (
       <Footer/>
       </BrowserRouter>
       {/* Check to see if express server is running correctly */}
-      <h5>{response}</h5>
+      
     </div>
   );
 };

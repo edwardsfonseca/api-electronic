@@ -1,0 +1,34 @@
+.body-detalle{
+    display: flex;
+}
+.detalles-card{
+    display: grid;
+    margin-top: 76px;
+    align-items: baseline;
+    justify-items: center;
+}
+.carrito-add{
+    background-color: #c7940a;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+@media (max-width:1078px) {
+    .body-detalle {
+        display: flex;
+        flex-direction: column;
+    }
+    .detalles-card {
+        display: grid;
+        align-items: baseline;
+        justify-items: center;
+        margin-bottom: 25px;
+        margin-top: 25px
+    
+    
+    }
+    
+    
+}

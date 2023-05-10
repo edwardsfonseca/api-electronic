@@ -1,0 +1,85 @@
+.Home {
+    position: relative;
+    display: flex;
+    background-image: url(https://images.pexels.com/photos/2544830/pexels-photo-2544830.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+    background-size: cover;
+    padding: 0;
+    margin: 0;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+    height: 100vh;
+}
+
+.Home:before {
+    content: '';
+    position: absolute;
+    background-color: black;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    opacity: 0.5;
+}
+
+.contenido {
+    position: absolute;
+    bottom: 41%;
+    left: 29%;
+    color: white;
+}
+
+@media (max-width :556px) {
+    .contenido {
+        position: absolute;
+        bottom: 30%;
+        margin-left: 200px;
+        margin-right: 10px;
+
+    }
+}
+@media (max-width :1090px) {
+    .contenido {
+        bottom: 52%;
+        left: 14%;
+        color: white;
+
+    }
+}
+
+.title-h5 {
+    color: #c7940a;
+
+    border-right: 2px solid var(--main-color);
+
+    overflow: hidden;
+    white-space: nowrap;
+    animation: control-width 4s steps(55) both, blink 0.9s infinite;
+
+
+}
+
+@keyframes control-width {
+
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 38rem;
+    }
+
+}
+
+@keyframes blink {
+
+    from {
+
+        border-right-color: var(--main-color);
+    }
+
+    to {
+
+        border-right-color: transparent;
+
+    }
+
+}
