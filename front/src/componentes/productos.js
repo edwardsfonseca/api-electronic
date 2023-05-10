@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from "react";
+// archivo Productos.js
+
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./styles/producto.css"
+
 export const Productos = ({ agregarAlCarrito }) => {
+    const backendUrl = process.env.BACKEND_URL;
     const [productos, setProductos] = useState([]);
     const [total, setTotal] = useState(0);
 
     useEffect(() => {
         const fetchProductos = async () => {
             try {
-                const respuesta = await fetch("http://localhost:5000/api/products");
+                const respuesta = await fetch(backendUrl + "/api/products");
                 const data = await respuesta.json();
                 setProductos(data);
             } catch (error) {
@@ -17,7 +21,7 @@ export const Productos = ({ agregarAlCarrito }) => {
         };
 
         fetchProductos();
-    }, []);
+    }, [backendUrl]);
 
     const handleClickAgregarCarrito = (producto) => {
         agregarAlCarrito(producto);
@@ -33,27 +37,26 @@ export const Productos = ({ agregarAlCarrito }) => {
                     <figure>
                         <img
                             className="card-img-top"
-                            src={`http://localhost:5000${producto.image}`}
+                            src={`${backendUrl}${producto.image}`}
                             alt={`Imagen de ${producto.name}`}
                         />
                         <div className="capa">
                             <h3 className="card-title">{producto.name}</h3>
                             <p className="text-producto">{producto.description}</p>
-                            <Link
-                                to={`/detalles/${producto._id}`}
-                                
-                            >
+                            <Link to={`/detalles/${producto._id}`}>
                                 <button className="learnmore">Learn More</button>
                             </Link>
                             {producto.countInStock > 0 && (
-                                <button className="carrito-add" onClick={() => handleClickAgregarCarrito(producto)} key={`add-to-cart-${producto.id}`} >
+                                <button
+                                    className="carrito-add"
+                                    onClick={() => handleClickAgregarCarrito(producto)}
+                                    key={`add-to-cart-${producto.id}`}
+                                >
                                     Agregar al carrito
                                 </button>
                             )}
                             {producto.countInStock === 0 && (
-                                <div key={`out-of-stock-${producto.id}`}>
-                                    No hay stock disponible
-                                </div>
+                                <div key={`out-of-stock-${producto.id}`}>No hay stock disponible</div>
                             )}
                         </div>
                     </figure>
