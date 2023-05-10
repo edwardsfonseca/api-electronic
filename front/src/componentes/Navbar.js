@@ -15,23 +15,25 @@ export const Navbar = ({ carrito, eliminarDeCarrito }) => {
     }, [carrito]);
 
     return (
-        <nav class="nav">       
-                <div class="collapse ">
-                    <div><h1 class="navbar-brand">DevChefElectronic</h1></div>
-                </div>
-                <div className="list">
-                    <ul class="navbar-nav">
+        <nav class="nav">
+            <div class="collapse ">
+                <div><h1 class="navbar-brand">DevChefElectronic</h1></div>
+            </div>
+            <div className="list">
+                <ul class="navbar-nav">
+                    <Link to={"/"}>
                         <li class="nav-item">
-                            <a class="nav-link " href="/">Home</a>
+                            <strong class="nav-link ">Home</strong>
                         </li>
-                        <Link to={"/productos"}>
+                    </Link>
+                    <Link to={"/productos"}>
                         <li class="nav-item">
-                            <a class="nav-link" >Proyectos</a>
+                            <strong class="nav-link" >Productos</strong>
                         </li>
-                        </Link>
-                    </ul>
-                    </div> 
-                <div className="navbar-cart">
+                    </Link>
+                </ul>
+            </div>
+            <div className="navbar-cart">
                 <button onClick={() => setMostrarCarrito(true)}>
                     Carrito ({carrito.length})
                 </button>
@@ -48,7 +50,7 @@ export const Navbar = ({ carrito, eliminarDeCarrito }) => {
                                 X
                             </button>
                         </div>
-                        <hr className="line"/>
+                        <hr className="line" />
                         <div className="carrito-modal-body">
                             {carrito.length !== 0 ? (
                                 carrito.map((producto, i) => (
@@ -66,14 +68,13 @@ export const Navbar = ({ carrito, eliminarDeCarrito }) => {
                             ) : (
                                 <div className="mensaje-vacio">El carrito está vacío</div>
                             )}
-                            <hr className="line"/>
+                            <hr className="line" />
                             <h2 className="total">Total de los valores agregados: ${Math.trunc(total)}</h2>
                         </div>
                     </div>
                 </div>
-            )}           
+            )}
         </nav>
     );
 };
-
 

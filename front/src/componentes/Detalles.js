@@ -37,8 +37,7 @@ export const Detalles = () => {
                     {producto.countInStock > 0 && (
                         <button className="carrito-add" onClick={() => {
                             actions.agregarAlCarrito(producto);
-                            const carritoEnLocalStorage = JSON.parse(localStorage.getItem("carrito")) || [];
-                            localStorage.setItem("carrito", JSON.stringify([...carritoEnLocalStorage, producto]));
+                            
                         }}>Agregar al carrito</button>
                     )}
                     {producto.countInStock === 0 && (
